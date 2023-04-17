@@ -48,8 +48,6 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       run: |
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /etc/mysql /usr/local/lib/android
-        # try fix build issue: https://github.com/actions/runner-images/issues/675
-        sudo apt-get update
         sudo -E apt-get -qq update
         sudo -E apt-get -qq install $(curl -fsSL is.gd/depends_ubuntu_2204)
         sudo -E apt-get -qq autoremove --purge
@@ -199,6 +197,8 @@ jobs:
       run: |
         docker rmi $(docker images -q)
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /etc/mysql /usr/local/lib/android
+        # try fix build issue: https://github.com/actions/runner-images/issues/675
+        sudo apt-get update
         sudo -E apt-get -qq purge azure-cli google* dotnet* llvm* moby* mysql* php* powershell
         sudo -E apt-get -qq update
         sudo -E apt-get -qq install libfuse-dev $(curl -fsSL is.gd/depends_ubuntu_2204)
